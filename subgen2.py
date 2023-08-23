@@ -22,6 +22,10 @@ def InfallMass2StellarMass(mAcc):
     return 2*k/(m**-alpha+m**-beta)
 
 def halfmodemass(WDMmass, cosmo=None):
+    '''WDMmass: thermal relic warm dark matter particle mass, in keV
+       cosmo: cosmology parameters, including [Omega_m, Omega_b, h]
+       output: halfmodemass, in 1e10Msun/h
+       reference: Bode01, Lovell14.'''
     mu = 1.2
     G = 43007.1
     H = 0.1
@@ -46,17 +50,15 @@ class ModelParameter:
     ''' container for model parameters. contains fs, A, alpha, mustar, beta parameters.'''
     def __init__(self,M, WDMmass = None):
         ''' model parameters for a given host mass M, in units of 1e10Msun/h '''
-        self.fs=0.58#0.55 #fraction of survived subhaloes
-        self.A=0.11*M**-0.05 #0.02 #infall mass function amplitude
+        self.fs=0.58 #fraction of survived subhaloes
+        self.A=0.11*M**-0.05 #infall mass function amplitude
         self.alpha=0.95 #infall mass function slope
         self.mustar=0.47 #0.5*M**-0.06 #stripping function amplitude
-        #self.beta=1.7*M**-0.04 #stripping function slope
-        self.beta = 1.437 * M**-0.021768 #1.575 * M**-0.036275
-        #self.beta = 1.46 * M**-0.021768
-        self.sigma_mu= 0.95 #1.1
+        self.beta = 1.437 * M**-0.021768 #stripping function slope
+        self.sigma_mu= 0.95 
         self.WDMmass = WDMmass
         
-        if WDMmass: # (1+(kappa * Mhm / Mx)**eta)**gamma
+        if WDMmass: # WDM mass function ratio: (1+(kappa * Mhm / Mx)**eta)**gamma
             self.Mhm = halfmodemass(self.WDMmass)  #Calculated by WDMmass
             self.kappa=2.29
             self.eta=1
@@ -68,7 +70,7 @@ class ModelParameter:
 
 class SubhaloSample:
     ''' a sample of subhaloes '''
-    def __init__(self,M,N=1e4,MMinInfall=1e-5,MMaxInfall=1e-1,Rmax=2,C=None,include_disruption=True,weighted_sample=True,WDMmass=None):
+    def __init__(self,M,N=1e4,MMinInfall=1e-5,MMaxInfall=1e-1,Rmax=2,C=None,include_disruption=True,weighted_sample=False,WDMmass=None):
         ''' initialize the sampling parameters.
   
         M: host mass in 1e10Msun/h
@@ -78,8 +80,9 @@ class SubhaloSample:
         Rmax: maximum radius to sample, in unit of host virial radius
         C: host concentration. If None, it will be determined by the mean mass-concentration relation.
         include_disruption: whether to include disrupted subhaloes in the sample.
-        weighted_sample: whether to sample the mass in a weighted way, so that different mass ranges are sampled equally well. this is useful if 				you have a large dynamic range in mass, e.g., from 10^-6 to 10^12 Msun.
-	'''
+        weighted_sample: whether to sample the mass in a weighted way, so that different mass ranges are sampled equally well. this is useful if you have a large dynamic range in mass, e.g., from 10^-6 to 10^12 Msun.
+	WDMmass: thermal relic warm dark matter mass, in unit of keV, if None, it will generate a CDM subhalo sample. weighted_sample should be set as False if you want to generate a WDM subhalo sample.
+        '''
         
         self.M=M
         self.WDMmass=WDMmass
