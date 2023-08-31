@@ -15,7 +15,14 @@ or
 to install these dependences if you miss them.
 
 ## Usage
-The usage of this code is almost the same as the `SubGen` code, except for an additional parameter specifying the WDM particle mass. Please consult the original usage instructions for `SubGen` at: https://github.com/Kambrian/SubGen 
+The usage of this code is almost the same as the `SubGen` code, except for an additional parameter specifying the WDM particle mass.
+
+For example, to sample subhaloes inside a host halo of mass 1e14 Msun/h, for WDM with a thermal relic particle mass of 1.3 keV
+```
+from subgen2 import *
+sample=SubhaloSample(M=1e4, WDMmass=1.3) 
+```
+Please consult the original `SubGen` documentation for more instructions and examples at: https://github.com/Kambrian/SubGen 
 
 ## References
 If you make use of this code, please cite the following papers:
