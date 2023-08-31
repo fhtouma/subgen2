@@ -1,5 +1,6 @@
-# subgen2
+`SubGen2` is a subhalo population generator which works for both CDM and WDM of arbitrary DM particle mass. It can be used to generate a population of subhaloes according to the joint distribution of subhalo bound mass, infall mass and halo-centric distance in a halo of a given mass. 
 
+`SubGen2` is an extension to the [`SubGen`](https://github.com/Kambrian/SubGen) which works only for CDM subhaloes.
 ### Prerequisites
 
 You need a python installation with the core scientific packages: `numpy`, `matplotlib` and `scipy`.
@@ -12,3 +13,11 @@ or
      pip install numpy matplotlib scipy emcee
 
 to install these dependences if you miss them.
+
+## Usage
+The usage of this code is almost the same as the `SubGen` code, except for an additional parameter specifying the WDM particle mass. Please consult the original usage instructions for `SubGen` at: https://github.com/Kambrian/SubGen 
+
+## References
+If you make use of this code, please cite the following papers:
+- `SubGen2`: He, Han, Gao & Zhang, 2023 (in prep.), [Extending the unified subhalo model to warm dark matter](TBA) 
+- `SubGen`: Han, Cole, Frenk & Jing, 2016, MNRAS, [A unified model for the spatial and mass distribution of subhaloes](http://arxiv.org/abs/1509.02175) 
