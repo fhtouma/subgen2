@@ -26,5 +26,5 @@ Please consult the original `SubGen` documentation for more instructions and exa
 
 ## References
 If you make use of this code, please cite the following papers:
-- `SubGen2`: He, Han, Gao & Zhang, 2023 (in prep.), [Extending the unified subhalo model to warm dark matter](TBA) 
+- `SubGen2`: He, Han, Gao & Zhang, 2023 (in prep.), [Extending the unified subhalo model to warm dark matter](https://arxiv.org/abs/2309.01109) 
 - `SubGen`: Han, Cole, Frenk & Jing, 2016, MNRAS, [A unified model for the spatial and mass distribution of subhaloes](http://arxiv.org/abs/1509.02175) 
