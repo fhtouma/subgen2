@@ -25,7 +25,8 @@ def halfmodemass(WDMmass, cosmo=None):
     '''WDMmass: thermal relic warm dark matter particle mass, in keV
        cosmo: cosmology parameters, including [Omega_m, Omega_b, h], Planck15 as default
        output: halfmodemass, in 1e10Msun/h
-       reference: Bode01, Lovell14.'''
+       reference: Bode et al. 2001, ApJ 556
+                  Lovell et al. 2014, MNRAS 439.'''
     mu = 1.2
     G = 43007.1
     H = 0.1
@@ -97,8 +98,7 @@ class SubhaloSample:
         self.mAccMax=MMaxInfall*M
         self.n=int(N) #sample size
         # expected  number of subhaloes per host for WDM numerical integration
-        if WDMmass:
-            #hmf = lambda x: pow(x,-a-1) * pow(1 + pow(k * xhm / x ,b), g)
+        if WDMmass: #MF ratio between WDM and CDM model: pow(M,-a-1) * pow(1 + pow(k * Mhm / M ,b), g)
             self.nPred=self.HOD.A*self.Msample* scipy.integrate.quad(lambda x: pow(x,-self.HOD.alpha-1) * pow(1 + pow(self.HOD.kappa * self.HOD.Mhm / x ,self.HOD.eta), self.HOD.gamma), self.mAccMin, self.mAccMax)[0]
         else:
             self.nPred=self.HOD.A*self.Msample*(self.mAccMin**-self.HOD.alpha-self.mAccMax**-self.HOD.alpha)/self.HOD.alpha #expected number of subhaloes per host.
