@@ -23,7 +23,7 @@ def InfallMass2StellarMass(mAcc):
 
 def halfmodemass(WDMmass, cosmo=None):
     '''WDMmass: thermal relic warm dark matter particle mass, in keV
-       cosmo: cosmology parameters, including [Omega_m, Omega_b, h]
+       cosmo: cosmology parameters, including [Omega_m, Omega_b, h], Planck15 as default
        output: halfmodemass, in 1e10Msun/h
        reference: Bode01, Lovell14.'''
     mu = 1.2
@@ -39,7 +39,7 @@ def halfmodemass(WDMmass, cosmo=None):
         Om = 0.3156
         Owdm = Om - Ob
         h = 0.6727  
-    alpha = 0.048 * pow(WDMmass,-1.15) * pow(Owdm/0.4, 0.15) * pow(h / 0.65, 1.3)
+    alpha = 0.05 * pow(WDMmass,-1.15) * pow(Owdm/0.4, 0.15) * pow(h / 0.65, 1.3)
     rho_omega = Om * 3 * H**2 / (8 * np.pi * G) * 1e9
     khm = pow(pow(2, 1/((5/mu)) )-1,  1/(2*mu)) / alpha
     lambda_hm =  2 * np.pi / khm
@@ -53,9 +53,9 @@ class ModelParameter:
         self.fs=0.58 #fraction of survived subhaloes
         self.A=0.11*M**-0.05 #infall mass function amplitude
         self.alpha=0.95 #infall mass function slope
-        self.mustar=0.47 #0.5*M**-0.06 #stripping function amplitude
-        self.beta = 1.437 * M**-0.021768 #stripping function slope
-        self.sigma_mu= 0.95 
+        self.mustar=0.65*M**-0.03 #stripping function amplitude
+        self.beta = 1.7*M**-0.04 #stripping function slope
+        self.sigma_mu= 0.98 
         self.WDMmass = WDMmass
         
         if WDMmass: # WDM mass function ratio: (1+(kappa * Mhm / Mx)**eta)**gamma
@@ -64,7 +64,6 @@ class ModelParameter:
             self.eta=1
             self.gamma=-0.68
             self.beta *= (1 + self.Mhm**0.248)**0.267
-            #self.beta *= (1 + self.Mhm**0.26)**0.35
             self.mustar *= (1 + self.Mhm**0.5476)**-0.31
             self.sigma_mu *= (1 + self.Mhm**0.44)**0.17
 
